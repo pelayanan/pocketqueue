@@ -1096,24 +1096,24 @@ class QueuePage extends StatelessWidget {
                 ],
               ),
             ),
-          Flex(
-            direction: wide ? Axis.horizontal : Axis.vertical,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                flex: wide ? 6 : 1,
-                child: CurrentCard(store: store),
-              ),
-              if (wide)
-                const SizedBox(width: 18)
-              else
+          if (wide)
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(flex: 6, child: CurrentCard(store: store)),
+                const SizedBox(width: 18),
+                Expanded(flex: 5, child: NextCard(store: store)),
+              ],
+            )
+          else
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                CurrentCard(store: store),
                 const SizedBox(height: 18),
-              Expanded(
-                flex: wide ? 5 : 1,
-                child: NextCard(store: store),
-              ),
-            ],
-          ),
+                NextCard(store: store),
+              ],
+            ),
           const SizedBox(height: 18),
           StatsRow(store: store),
           const SizedBox(height: 24),

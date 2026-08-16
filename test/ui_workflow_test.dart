@@ -40,6 +40,23 @@ void main() {
     expect(find.text('Save Queue'), findsOneWidget);
   });
 
+  testWidgets('queue page renders on a narrow mobile viewport', (tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    final queueStore = await store(onboarded: true);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: QueuePage(store: queueStore, onNavigate: (_) {}),
+      ),
+    );
+    await settle(tester);
+    expect(find.text('NOW SERVING'), findsOneWidget);
+    expect(find.text('NEXT CUSTOMER'), findsOneWidget);
+    expect(find.text('CALL NEXT'), findsOneWidget);
+    tester.view.resetPhysicalSize();
+    tester.view.resetDevicePixelRatio();
+  });
+
   testWidgets('queue controls are present and store transitions work', (
     tester,
   ) async {
